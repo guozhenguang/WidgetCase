@@ -16,7 +16,7 @@ class GradientProBarScaleActivity : AppCompatActivity() {
         gpb.setPercent(30)
 
         refeshtn.setOnClickListener {
-            gpb.setPercent(mRandom.nextInt(100))
+            gpb.setPercent(mRandom.nextInt(100) )
         }
     }
 }
