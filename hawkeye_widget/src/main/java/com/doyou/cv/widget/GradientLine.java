@@ -11,7 +11,7 @@ import android.graphics.PointF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 
-import com.dongni.tools.DensityUtil;
+import com.doyou.cv.utils.DensityUtil;
 import com.doyou.cv.widget.base.BaseGradientView;
 
 import java.util.List;
@@ -83,8 +83,8 @@ public class GradientLine extends BaseGradientView {
         control1 = new PointF(0f, 0f);
         control2 = new PointF(0f, 0f);
 
-        mRadius = DensityUtil.dp2px(2.4f);
-        mLineW = DensityUtil.dp2px(80f);
+        mRadius = DensityUtil.dp2px(getContext(),2.4f);
+        mLineW = DensityUtil.dp2px(getContext(),80f);
         mRadian = (1.4f / 3); // 控制点弧度
     }
 
@@ -291,7 +291,7 @@ public class GradientLine extends BaseGradientView {
     }
 
     private void upLgMoreConfig(Canvas canvas){
-        LinearGradient lg = new LinearGradient(mRadius * 2, control1.y, mView_W / 2, control2.y + DensityUtil.dp2px(2),
+        LinearGradient lg = new LinearGradient(mRadius * 2, control1.y, mView_W / 2, control2.y + DensityUtil.dp2px(getContext(),2),
                 Color.rgb(255, 196, 0), Color.rgb(255, 105, 83), Shader.TileMode.CLAMP);
         mPaint.setShader(lg);
 
@@ -302,7 +302,7 @@ public class GradientLine extends BaseGradientView {
         // 画圆点
         mPointPaint.setShader(lg);
         canvas.drawCircle(mRadius + mPointPaint.getStrokeWidth(), mView_H - mRadius - mPointPaint.getStrokeWidth(), mRadius, mPointPaint);
-        canvas.drawCircle(mView_W - mRadius - mPointPaint.getStrokeWidth(), control2.y + DensityUtil.dp2px(2), mRadius, mPointPaint);
+        canvas.drawCircle(mView_W - mRadius - mPointPaint.getStrokeWidth(), control2.y + DensityUtil.dp2px(getContext(),2), mRadius, mPointPaint);
     }
 
     @Override
@@ -314,7 +314,7 @@ public class GradientLine extends BaseGradientView {
             upLgMoreConfig(canvas);
             Path path = new Path();
             path.moveTo(mRadius * 2 + mPointPaint.getStrokeWidth(), mView_H - mRadius - mPointPaint.getStrokeWidth());
-            path.cubicTo(control1.x, control1.y, control2.x, control2.y, mView_W - (mRadius * 2) - mPointPaint.getStrokeWidth(), control2.y + DensityUtil.dp2px(2));
+            path.cubicTo(control1.x, control1.y, control2.x, control2.y, mView_W - (mRadius * 2) - mPointPaint.getStrokeWidth(), control2.y + DensityUtil.dp2px(getContext(),2));
             canvas.drawPath(path, mPaint);
         }
     }
@@ -329,14 +329,14 @@ public class GradientLine extends BaseGradientView {
         // 控制点2
         addPoint(control2.x, control2.y);
         // 结束点
-        addPoint(mView_W - (mRadius * 2) - mPointPaint.getStrokeWidth(), control2.y + DensityUtil.dp2px(2));
+        addPoint(mView_W - (mRadius * 2) - mPointPaint.getStrokeWidth(), control2.y + DensityUtil.dp2px(getContext(),2));
         startAnim();
     }
 
     private void downLgMoreCofig(Canvas canvas){
         // 设置渐变曲线配置
         float y0 = control1.y;
-        LinearGradient lg = new LinearGradient(mRadius * 2, y0, mView_W / 2, control2.y + DensityUtil.dp2px(2),
+        LinearGradient lg = new LinearGradient(mRadius * 2, y0, mView_W / 2, control2.y + DensityUtil.dp2px(getContext(),2),
                 Color.rgb(88, 181, 250), Color.rgb(101, 226, 175), Shader.TileMode.CLAMP);
         mPaint.setShader(lg);
 

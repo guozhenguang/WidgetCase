@@ -11,10 +11,10 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
-import com.dongni.tools.DensityUtil;
-import com.dongni.tools.EmptyUtils;
 import com.doyou.cv.R;
 import com.doyou.cv.bean.CircleBean;
+import com.doyou.cv.utils.DensityUtil;
+import com.doyou.cv.utils.EmptyUtil;
 import com.doyou.cv.utils.LogUtil;
 import com.doyou.cv.utils.Util;
 import com.doyou.cv.widget.base.CircleCenterStyle;
@@ -94,7 +94,7 @@ public class CircleView extends ProgressBar {
         mCenterStr = typedArray.getString(R.styleable.CircleView_cv_center_txt);
         mCenterTxtSize = typedArray.getDimensionPixelSize(R.styleable.CircleView_cv_center_txt_size, DensityUtil.sp2px(context, 12));
         mCenterTxtColor = typedArray.getColor(R.styleable.CircleView_cv_center_txt_color, Color.rgb(42, 42, 42));
-        mCenterTxtMargin = typedArray.getDimensionPixelOffset(R.styleable.CircleView_cv_cengter_txt_margin,DensityUtil.dp2px(4));
+        mCenterTxtMargin = typedArray.getDimensionPixelOffset(R.styleable.CircleView_cv_cengter_txt_margin,DensityUtil.dp2px(context,4));
         mBorderW = typedArray.getDimensionPixelOffset(R.styleable.CircleView_cv_boderW, 6);
         mRadius = typedArray.getDimensionPixelOffset(R.styleable.CircleView_cv_radius, 16);
 
@@ -160,7 +160,7 @@ public class CircleView extends ProgressBar {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(EmptyUtils.isEmpty(mList)){
+        if(EmptyUtil.isEmpty(mList)){
             drawEmptyData(canvas);
         }else{
             drawCircleRing(canvas);
@@ -175,7 +175,7 @@ public class CircleView extends ProgressBar {
 
     public void setData(List<CircleBean> beans) {
         mList.clear();
-        if (EmptyUtils.isNotEmpty(beans)) {
+        if (EmptyUtil.isNotEmpty(beans)) {
             mList.addAll(beans);
         }
         invalidate();
@@ -193,7 +193,7 @@ public class CircleView extends ProgressBar {
         int canvasH = canvas.getHeight();
         int[] wh = Util.getTextWH(NOT_DATA, paint);
         // 画文字的时候，y值是文字的底线
-        canvas.drawText(NOT_DATA, canvasW / 2 - wh[0] / 2, canvasH / 2 + wh[1] / 2 - DensityUtil.dp2px(1.5f), paint);
+        canvas.drawText(NOT_DATA, canvasW / 2 - wh[0] / 2, canvasH / 2 + wh[1] / 2 - DensityUtil.dp2px(getContext(),1.5f), paint);
     }
 
     /**
@@ -231,7 +231,7 @@ public class CircleView extends ProgressBar {
      * @param canvas
      */
     private void drawCircleRing(Canvas canvas) {
-        if (EmptyUtils.isEmpty(mList)) {
+        if (EmptyUtil.isEmpty(mList)) {
             return;
         }
 

@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.OverScroller;
 
-import com.dongni.tools.DensityUtil;
+import com.doyou.cv.utils.DensityUtil;
 import com.doyou.cv.utils.LogUtil;
 import com.doyou.cv.utils.Util;
 
@@ -73,7 +73,7 @@ public class MatrixView extends View implements GestureDetector.OnGestureListene
 
     public MatrixView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        mBitmap = Util.getAvatar(getResources(), DensityUtil.dp2px(220));
+        mBitmap = Util.getAvatar(getResources(), DensityUtil.dp2px(context,220));
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mScreenW = getResources().getDisplayMetrics().widthPixels;
         mScreenH = getResources().getDisplayMetrics().heightPixels;

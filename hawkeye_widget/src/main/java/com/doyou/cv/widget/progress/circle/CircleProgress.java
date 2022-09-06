@@ -15,8 +15,8 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.dongni.tools.DensityUtil;
 import com.doyou.cv.R;
+import com.doyou.cv.utils.DensityUtil;
 import com.doyou.cv.utils.LogUtil;
 
 import androidx.annotation.Nullable;
@@ -117,7 +117,7 @@ public class CircleProgress extends View {
 
     private void init(Context context, AttributeSet attrs) {
         mContext = context;
-        mDefaultSize = DensityUtil.dp2px(150);
+        mDefaultSize = DensityUtil.dp2px(context,150);
         mAnimator = new ValueAnimator();
         mRectF = new RectF();
         mCenterPoint = new Point();

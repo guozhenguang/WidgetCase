@@ -8,14 +8,15 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.dongni.tools.DensityUtil;
+import com.doyou.cv.utils.DensityUtil;
 import com.doyou.cv.utils.Util;
 
 import androidx.annotation.Nullable;
 
 public class BmpOverturnView extends View {
 
-    public static final int IMAGE_WIDTH = DensityUtil.dp2px(180);
+    public static int IMAGE_WIDTH = 0;
+    private Context context;
 
     Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap image;
@@ -73,6 +74,8 @@ public class BmpOverturnView extends View {
 
     public BmpOverturnView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
+        IMAGE_WIDTH =DensityUtil.dp2px(context,180);
     }
 
     {
@@ -90,7 +93,7 @@ public class BmpOverturnView extends View {
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
         left = (getWidth() - IMAGE_WIDTH) / 2;
-        top = (getHeight() - IMAGE_WIDTH) / 2 - DensityUtil.dp2px(50);
+        top = (getHeight() - IMAGE_WIDTH) / 2 - DensityUtil.dp2px(context,50);
     }
 
     @Override

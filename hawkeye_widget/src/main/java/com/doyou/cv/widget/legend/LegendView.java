@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dongni.tools.DensityUtil;
-import com.dongni.tools.EmptyUtils;
 import com.doyou.cv.R;
+import com.doyou.cv.utils.DensityUtil;
+import com.doyou.cv.utils.EmptyUtil;
 import com.doyou.cv.utils.LogUtil;
 import com.doyou.cv.widget.PointView;
 
@@ -70,11 +70,11 @@ public class LegendView extends LinearLayout {
 
     private void initAttr(AttributeSet attrs) {
         TypedArray ta = mContext.obtainStyledAttributes(attrs,R.styleable.LegendView);
-        mColumnWidth = ta.getDimensionPixelOffset(R.styleable.LegendView_lv_legend_columnW, DensityUtil.dp2px(42));
+        mColumnWidth = ta.getDimensionPixelOffset(R.styleable.LegendView_lv_legend_columnW, DensityUtil.dp2px(mContext,42));
         mLegendVerMargin = ta.getDimensionPixelOffset(R.styleable.LegendView_lv_legend_vertical_margin, DensityUtil.sp2px(mContext, 8));
         mLabelColor = ta.getColor(R.styleable.LegendView_lv_legend_font_color, Color.rgb(42, 42, 42));
         mLabelSize = ta.getDimensionPixelSize(R.styleable.LegendView_lv_legend_font_size, DensityUtil.sp2px(mContext, 12));
-        mLegendLabelAndPointMargin = ta.getDimensionPixelOffset(R.styleable.LegendView_lv_legend_labelAndPoint_margin, DensityUtil.dp2px(4));
+        mLegendLabelAndPointMargin = ta.getDimensionPixelOffset(R.styleable.LegendView_lv_legend_labelAndPoint_margin, DensityUtil.dp2px(mContext,4));
         mLegendOffsetLeft = ta.getDimensionPixelOffset(R.styleable.LegendView_lv_legend_offset_left, 0);
         ta.recycle();
     }
@@ -133,7 +133,7 @@ public class LegendView extends LinearLayout {
      * @param colors
      */
     public void setData(final List<String> legends, final int[] colors) {
-        if (EmptyUtils.isEmpty(legends)) {
+        if (EmptyUtil.isEmpty(legends)) {
             setVisibility(View.GONE);
             return;
         }
@@ -186,7 +186,7 @@ public class LegendView extends LinearLayout {
                     pointView.setColor(colors[pos]);
                     if (j > 0) {
                         if (legends.get(pos - 1).length() > 2) { // 针对三个文字的间距设置
-                            sonParams.leftMargin = DensityUtil.dp2px(12);
+                            sonParams.leftMargin = DensityUtil.dp2px(mContext,12);
                             pointView.setLayoutParams(sonParams);
                         }
                     }

@@ -11,7 +11,7 @@ import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.dongni.tools.DensityUtil;
+import com.doyou.cv.utils.DensityUtil;
 import com.doyou.cv.utils.LogUtil;
 
 import androidx.annotation.Nullable;
@@ -56,7 +56,7 @@ public class CircleWaveView extends View {
     /**
      * 弧长高度
      */
-    private static final int ARC_H = DensityUtil.dp2px(32);
+    private static  int ARC_H = 0;
 
     private static final String TAG = "CircleWaveView";
     private Paint mCirclePaint;
@@ -79,6 +79,7 @@ public class CircleWaveView extends View {
 
     public CircleWaveView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        ARC_H = DensityUtil.dp2px(context,32);
         mCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         mCirclePaint.setColor(Color.parseColor("#990000FF"));
         mCirclePaint.setStrokeWidth(10);

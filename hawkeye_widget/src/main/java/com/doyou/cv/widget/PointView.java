@@ -7,9 +7,10 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.dongni.tools.DensityUtil;
 
 import androidx.annotation.Nullable;
+
+import com.doyou.cv.utils.DensityUtil;
 
 /**
  * 图例样式
@@ -42,7 +43,7 @@ public class PointView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.FILL);
 
-        mPointWH = DensityUtil.dp2px(8);
+        mPointWH = DensityUtil.dp2px(context,8);
     }
 
     @Override

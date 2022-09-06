@@ -11,9 +11,9 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
-import com.dongni.tools.DensityUtil;
 import com.doyou.cv.R;
 import com.doyou.cv.bean.GradientColor;
+import com.doyou.cv.utils.DensityUtil;
 import com.doyou.cv.utils.LogUtil;
 
 
@@ -37,6 +37,7 @@ public class SectionProBar extends ProgressBar {
     private GradientColor mBgGradientColor; // 背景颜色渐变对象
     private GradientColor mProGradientColor; // 进度颜色渐变对象
     private float progress;
+    private Context context;
 
 
     public void setProgress(float progress) {
@@ -56,6 +57,7 @@ public class SectionProBar extends ProgressBar {
 
     public SectionProBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         initDefaultAttrs();
         initCustomAttrs(context, attrs);
     }
@@ -70,9 +72,9 @@ public class SectionProBar extends ProgressBar {
         mProPaint.setStyle(Paint.Style.STROKE);
 
         mReachedColor = Color.rgb(112,168,0);
-        mReachedHeight = DensityUtil.dp2px(2);
+        mReachedHeight = DensityUtil.dp2px(context,2);
         mUnReachedColor = Color.rgb(204,204,204);
-        mUnReachedHeight = DensityUtil.dp2px(1);
+        mUnReachedHeight = DensityUtil.dp2px(context,1);
     }
 
     private void initCustomAttrs(Context context, AttributeSet attrs) {

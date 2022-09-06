@@ -14,11 +14,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ProgressBar;
 
-import com.dongni.tools.DensityUtil;
-import com.dongni.tools.EmptyUtils;
 import com.doyou.cv.R;
 import com.doyou.cv.bean.CircleBean;
 import com.doyou.cv.bean.RingVBean;
+import com.doyou.cv.utils.DensityUtil;
+import com.doyou.cv.utils.EmptyUtil;
 import com.doyou.cv.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -138,11 +138,11 @@ public class RingView extends ProgressBar {
         mTextColor = Color.parseColor("#70A800");
         mTextSize = DensityUtil.sp2px(context, 10);
         mReachedColor = Color.parseColor("#70A800");
-        mReachedHeight = DensityUtil.dp2px(2);
+        mReachedHeight = DensityUtil.dp2px(context,2);
         mUnReachedColor = Color.parseColor("#CCCCCC");
-        mUnReachedHeight = DensityUtil.dp2px(1);
+        mUnReachedHeight = DensityUtil.dp2px(context,1);
 
-        mRadius = DensityUtil.dp2px(16);
+        mRadius = DensityUtil.dp2px(context,16);
     }
 
     private void initCustomAttrs(Context context, AttributeSet attrs) {
@@ -162,7 +162,7 @@ public class RingView extends ProgressBar {
         mCenterTxt = typedArray.getString(R.styleable.RingView_rv_center_txt);
         mCenterTxtSize = typedArray.getDimensionPixelSize(R.styleable.RingView_rv_center_txt_size, 12);
         mCenterTxtColor = typedArray.getColor(R.styleable.RingView_rv_center_txt_color, Color.GRAY);
-        mCenterImgTxtMargin = typedArray.getDimension(R.styleable.RingView_rv_center_imgtxt_margin, DensityUtil.dp2px(6));
+        mCenterImgTxtMargin = typedArray.getDimension(R.styleable.RingView_rv_center_imgtxt_margin, DensityUtil.dp2px(context,6));
         mTextColor = typedArray.getColor(R.styleable.RingView_rv_textColor, mTextColor);
         mTextSize = typedArray.getDimensionPixelOffset(R.styleable.RingView_rv_textSize, mTextSize);
         mReachedColor = typedArray.getColor(R.styleable.RingView_rv_reachedColor, mReachedColor);
@@ -250,7 +250,7 @@ public class RingView extends ProgressBar {
                 long moveTime = System.currentTimeMillis() - currentMS;
                 LogUtil.logD("201811161726", "moveTime = " + moveTime);
                 if (moveTime < 120) { // 点击判定条件
-                    if (EmptyUtils.isNotEmpty(mOuterRfList)) {
+                    if (EmptyUtil.isNotEmpty(mOuterRfList)) {
                         RingVBean bean;
                         int size = mOuterRfList.size();
                         for (int i = 0; i < size; i++) {
@@ -302,10 +302,10 @@ public class RingView extends ProgressBar {
     private String[] mStrs;
 
     public void setData(float progress, String... strs) {
-        if (EmptyUtils.isNotEmpty(mOuterRfList)) {
+        if (EmptyUtil.isNotEmpty(mOuterRfList)) {
             mOuterRfList.clear();
         }
-        if (EmptyUtils.isNotEmpty(mStrs)) {
+        if (EmptyUtil.isNotEmpty(mStrs)) {
             mStrs = null;
         }
         mStrs = strs;
@@ -318,10 +318,10 @@ public class RingView extends ProgressBar {
     private List<CircleBean> mList = new ArrayList<>();
 
     public void setData(List<CircleBean> beans) {
-        if (EmptyUtils.isNotEmpty(mOuterRfList)) {
+        if (EmptyUtil.isNotEmpty(mOuterRfList)) {
             mOuterRfList.clear();
         }
-        if (EmptyUtils.isNotEmpty(mList)) {
+        if (EmptyUtil.isNotEmpty(mList)) {
             mList.clear();
         }
         mList = beans;
@@ -363,7 +363,7 @@ public class RingView extends ProgressBar {
             if (mCenterBitmap == null) {
                 throw new IllegalArgumentException("图形结合模式下rv_center_bmp需要配置");
             }
-            if (EmptyUtils.isEmpty(mCenterTxt)) {
+            if (EmptyUtil.isEmpty(mCenterTxt)) {
                 throw new IllegalArgumentException("图形结合模式下rv_center_txt需要配置");
             }
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -390,7 +390,7 @@ public class RingView extends ProgressBar {
      * @param canvas
      */
     private void onDrawCircleByTwo(Canvas canvas) {
-        if (EmptyUtils.isEmpty(mStrs)) {
+        if (EmptyUtil.isEmpty(mStrs)) {
             return;
         }
         // 1.移动画布保证居中对齐
@@ -447,7 +447,7 @@ public class RingView extends ProgressBar {
             if (!TextUtils.isEmpty(currTxt)) {
                 LogUtil.logD("201811191753", "currTxt = " + currTxt);
                 if (isLeft) {
-                    float l_startX = endX - wh[0] - DensityUtil.dp2px(3);
+                    float l_startX = endX - wh[0] - DensityUtil.dp2px(getContext(),3);
                     float l_startY = xy[1] + wh[1] / 2;
                     canvas.drawText(currTxt, l_startX, l_startY, mTxtPaint);
 
@@ -455,7 +455,7 @@ public class RingView extends ProgressBar {
                     float cir_x_yd_l = canvas.getWidth() / 2 - mRadius;
                     addRingVBean(currTxt, cir_x_yd_l + l_startX, l_startY + getPaddingTop(), wh);
                 } else {
-                    float r_startX = endX + DensityUtil.dp2px(3);
+                    float r_startX = endX + DensityUtil.dp2px(getContext(),3);
                     float r_startY = xy[1] + wh[1] / 2;
                     canvas.drawText(currTxt, r_startX, r_startY, mTxtPaint);
 
@@ -477,7 +477,7 @@ public class RingView extends ProgressBar {
     }
 
     private void onDrawCircleByMore(Canvas canvas) {
-        if (EmptyUtils.isEmpty(mList)) {
+        if (EmptyUtil.isEmpty(mList)) {
             return;
         }
 
@@ -561,13 +561,13 @@ public class RingView extends ProgressBar {
             canvas.drawLine(xy[0], xy[1], endX, xy[1], mLinePaint);
             // 画文案咯
             if (isLeft) {
-                float l_startX = endX - wh[0] - DensityUtil.dp2px(3);
+                float l_startX = endX - wh[0] - DensityUtil.dp2px(getContext(),3);
                 float l_startY = xy[1] + wh[1] / 2;
                 canvas.drawText(currTxt, l_startX, l_startY, mTxtPaint);
                 int cir_x_yd_l = canvas.getWidth() / 2 - mRadius;
                 addRingVBean(currTxt, cir_x_yd_l + l_startX, l_startY + getPaddingTop(), wh);
             } else {
-                float r_startX = endX + DensityUtil.dp2px(3);
+                float r_startX = endX + DensityUtil.dp2px(getContext(),3);
                 float r_startY = xy[1] + wh[1] / 2;
                 canvas.drawText(currTxt, r_startX, r_startY, mTxtPaint);
 
@@ -612,10 +612,10 @@ public class RingView extends ProgressBar {
 
     private void addRingVBean(String label, float x, float y, int[] wh) {
         // 额外补加的间距值，目的是更容易点击到
-        int bj_margin = DensityUtil.dp2px(4);
+        int bj_margin = DensityUtil.dp2px(getContext(),4);
         RingVBean rvb = new RingVBean();
         rvb.setLabel(label);
-        rvb.setRf(new RectF(x - mPaint.getStrokeWidth() - DensityUtil.dp2px(2) - bj_margin,
+        rvb.setRf(new RectF(x - mPaint.getStrokeWidth() - DensityUtil.dp2px(getContext(),2) - bj_margin,
                 y - wh[1] / 2 - bj_margin,
                 x + wh[0] + bj_margin,
                 y + wh[1] / 2 + bj_margin));

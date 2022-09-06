@@ -8,7 +8,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.dongni.tools.DensityUtil;
+import com.doyou.cv.utils.DensityUtil;
 import com.doyou.cv.utils.Util;
 
 import androidx.annotation.Nullable;
@@ -20,8 +20,8 @@ import androidx.annotation.Nullable;
  */
 public class ImgTxtMixtureView extends View {
 
-    private static final int IMAGE_WIDTH = (int) DensityUtil.dp2px(140);
-    public static final int IMAGE_PADDING = (int) DensityUtil.dp2px(44);
+    private static  int IMAGE_WIDTH = 0;
+    public static  int IMAGE_PADDING = 0;
     private String text = "Save the date! Android Dev Summit is coming to Sunnyvale, CA on Oct 23-24, 2019.The Android App Bundle speaks Duolingos language, reducing its app size by 56%\n" +
             "Since 2011, Duolingo has made language learning fun for millions of people worldwide. Offering free King is a leading interactive entertainment company, with popular mobile games " +
             "such as Candy Crush Saga, Farm Heroes Saga and Bubble Witch 3 Saga. In March 2018, King implemented Google Play Instant and was excited to see the potential impact on removing user " +
@@ -36,11 +36,10 @@ public class ImgTxtMixtureView extends View {
 
     public ImgTxtMixtureView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    {
-        mTextPaint.setTextSize(DensityUtil.dp2px(15));
-        mPaint.setTextSize(DensityUtil.dp2px(16));
+        IMAGE_WIDTH = (int) DensityUtil.dp2px(context,140);
+        IMAGE_WIDTH = (int) DensityUtil.dp2px(context,140);
+        mTextPaint.setTextSize(DensityUtil.dp2px(context,15));
+        mPaint.setTextSize(DensityUtil.dp2px(context,16));
         mBitmap = Util.getAvatar(getResources(),IMAGE_WIDTH);
     }
 
@@ -54,8 +53,8 @@ public class ImgTxtMixtureView extends View {
         for (int start = 0, count; start < length; start += count,yOffset += mPaint.getFontSpacing()) {
             float textTop = yOffset + mMetrics.top;
             float textBottom = yOffset + mMetrics.bottom;
-            if (textTop > IMAGE_PADDING && textTop < IMAGE_PADDING + IMAGE_WIDTH + DensityUtil.dp2px(12) ||
-                    textBottom > IMAGE_PADDING && textBottom < IMAGE_PADDING + IMAGE_WIDTH + DensityUtil.dp2px(12)) {
+            if (textTop > IMAGE_PADDING && textTop < IMAGE_PADDING + IMAGE_WIDTH + DensityUtil.dp2px(getContext(),12) ||
+                    textBottom > IMAGE_PADDING && textBottom < IMAGE_PADDING + IMAGE_WIDTH + DensityUtil.dp2px(getContext(),12)) {
                 usableWidth = getWidth() - IMAGE_WIDTH;
             }else{
                 usableWidth = getWidth();

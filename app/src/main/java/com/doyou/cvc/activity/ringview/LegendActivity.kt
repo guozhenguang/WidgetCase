@@ -3,8 +3,8 @@ package com.doyou.cvc.activity.ringview
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.dongni.tools.ToastUtils
 import com.doyou.cv.bean.CircleBean
+import com.doyou.cv.utils.ToastUtils
 import com.doyou.cvc.R
 import kotlinx.android.synthetic.main.activity_ringview_legend.*
 import java.text.DecimalFormat

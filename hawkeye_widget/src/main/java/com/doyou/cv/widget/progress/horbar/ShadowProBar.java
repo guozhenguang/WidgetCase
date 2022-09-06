@@ -13,8 +13,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.dongni.tools.DensityUtil;
 import com.doyou.cv.R;
+import com.doyou.cv.utils.DensityUtil;
 
 import androidx.annotation.Nullable;
 
@@ -113,7 +113,7 @@ public class ShadowProBar extends View {
      * 初始化画笔宽度及view大小
      */
     private void init(Context context, AttributeSet attrs) {
-        progressRound = DensityUtil.dp2px(6);
+        progressRound = DensityUtil.dp2px(context,6);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ShadowProBar);
         ta.recycle();
     }

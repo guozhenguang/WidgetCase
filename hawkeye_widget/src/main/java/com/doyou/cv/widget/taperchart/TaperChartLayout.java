@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.dongni.tools.DensityUtil;
-import com.dongni.tools.EmptyUtils;
 import com.doyou.cv.R;
 import com.doyou.cv.bean.TaperChartBean;
+import com.doyou.cv.utils.DensityUtil;
+import com.doyou.cv.utils.EmptyUtil;
 import com.doyou.cv.utils.LogUtil;
 import com.doyou.cv.utils.Util;
 
@@ -79,7 +79,7 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
         mPointPaint.setStrokeCap(Paint.Cap.ROUND);
         mPointPaint.setColor(Color.RED);
 
-        DEFAULT_SIZE = (int) (getResources().getDimension(R.dimen.taper_chart_height) + DensityUtil.dp2px(20));
+        DEFAULT_SIZE = (int) (getResources().getDimension(R.dimen.taper_chart_height) + DensityUtil.dp2px(mContext,20));
         mTaperMargin = getResources().getDimension(R.dimen.taper_chart_margin);
     }
 
@@ -88,10 +88,10 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
      * @param colors
      */
     public void setColors(int... colors){
-        if(EmptyUtils.isEmpty(colors)){
+        if(EmptyUtil.isEmpty(colors)){
             return;
         }
-        if(EmptyUtils.isEmpty(mChart)){
+        if(EmptyUtil.isEmpty(mChart)){
             new IllegalArgumentException("TaperChart控件不能为空...");
         }
         mChart.setTaperColors(colors);
@@ -116,7 +116,7 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
     public void setData(List<String> xValues, List<Float> yValues, List<String> labels) {
         mIsComparison = false;
         mChart.setData(xValues, yValues);
-        if (EmptyUtils.isNotEmpty(mLabels)) {
+        if (EmptyUtil.isNotEmpty(mLabels)) {
             mLabels.clear();
         }
         mLabels = labels;
@@ -132,7 +132,7 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
     public void setData(List<String> xValues, List<Float> yValues, List<String> labels,String dw) {
         mIsComparison = false;
         mChart.setData(xValues, yValues,dw);
-        if (EmptyUtils.isNotEmpty(mLabels)) {
+        if (EmptyUtil.isNotEmpty(mLabels)) {
             mLabels.clear();
         }
         mLabels = labels;
@@ -150,14 +150,14 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
     public void setData(List<String> xValues, List<Float> yValues, String[] labels, String dw, List<String> btmLabels,boolean isComparison) {
         mIsComparison = isComparison;
         mChart.setData(xValues, yValues, labels, dw);
-        if (EmptyUtils.isNotEmpty(mLabels)) {
+        if (EmptyUtil.isNotEmpty(mLabels)) {
             mLabels.clear();
         }
         mLabels = btmLabels;
     }
 
     public void setEmpty() {
-        if (EmptyUtils.isNotEmpty(mLabels)) {
+        if (EmptyUtil.isNotEmpty(mLabels)) {
             mLabels.clear();
         }
         mChart.setEmpty();
@@ -197,7 +197,7 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
 
         int result;
         if (specMode == MeasureSpec.EXACTLY) { // 确切大小
-            result = specSize + DensityUtil.dp2px(20);
+            result = specSize + DensityUtil.dp2px(mContext,20);
         }
 //        else if (specMode == MeasureSpec.AT_MOST) { // 不确定
 //            result = Math.min(DEFAULT_SIZE, specSize);
@@ -210,7 +210,7 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (EmptyUtils.isEmpty(mChart.getList()) || EmptyUtils.isEmpty(mLabels)) {
+        if (EmptyUtil.isEmpty(mChart.getList()) || EmptyUtil.isEmpty(mLabels)) {
 //            drawEmptyData(canvas);
             LogUtil.logD("201812241158","清除画布-之前的文案...");
             canvas.drawText("",0,0,mTextPaint);
@@ -225,7 +225,7 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
                 bean = mChart.getList().get(i);
                 String label = mLabels.get(i);
                 canvas.drawText(label, mTaperMargin + bean.getRectF().left + (halfW - Util.getTextWidth(label, mTextPaint) / 2),
-                        mChart.getXAxisTxt_Y() + Util.getTextHeight(label, mTextPaint) + DensityUtil.dp2px(4), mTextPaint);
+                        mChart.getXAxisTxt_Y() + Util.getTextHeight(label, mTextPaint) + DensityUtil.dp2px(mContext,4), mTextPaint);
 
 //            if(i == 0){
 //            canvas.drawPoint(bean.getRectF().left + mTaperMargin,bean.getRectF().bottom,mPointPaint);
@@ -249,7 +249,7 @@ public class TaperChartLayout extends LinearLayout implements TaperChart.DrawDat
                 }
                 String label = mLabels.get(i);
                 canvas.drawText(label, mTaperMargin + left + (halfW - Util.getTextWidth(label, mTextPaint) / 2),
-                        mChart.getXAxisTxt_Y() + Util.getTextHeight(label, mTextPaint) + DensityUtil.dp2px(4), mTextPaint);
+                        mChart.getXAxisTxt_Y() + Util.getTextHeight(label, mTextPaint) + DensityUtil.dp2px(mContext,4), mTextPaint);
             }
         }
     }

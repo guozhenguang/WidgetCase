@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.dongni.tools.EmptyUtils
-import com.dongni.tools.ToastUtils
+import com.doyou.cv.utils.EmptyUtil
+import com.doyou.cv.utils.ToastUtils
 import com.doyou.cvc.R
 import com.doyou.cvc.activity.animator.BmpOverturnActivity
 import com.doyou.cvc.activity.colorfilter.ColorMainActivity
@@ -94,7 +94,7 @@ class MenuMainActivity : AppCompatActivity(), View.OnClickListener, NavigationVi
     }
 
     private fun copyContent(str:String?){
-        if (EmptyUtils.isNotEmpty(str)){
+        if (EmptyUtil.isNotEmpty(str)){
             var cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             var clipData = ClipData.newPlainText("Label",str)
             cm.primaryClip = clipData

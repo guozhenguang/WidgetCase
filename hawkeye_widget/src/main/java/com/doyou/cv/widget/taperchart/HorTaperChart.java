@@ -17,10 +17,10 @@ import android.view.ViewConfiguration;
 import android.view.animation.Interpolator;
 import android.widget.OverScroller;
 
-import com.dongni.tools.DensityUtil;
-import com.dongni.tools.EmptyUtils;
 import com.doyou.cv.R;
 import com.doyou.cv.bean.TaperChartBean;
+import com.doyou.cv.utils.DensityUtil;
+import com.doyou.cv.utils.EmptyUtil;
 import com.doyou.cv.utils.LogUtil;
 import com.doyou.cv.utils.Util;
 
@@ -170,11 +170,11 @@ public class HorTaperChart extends View {
 
     private void init(Context context) {
         mContext = context;
-        mOffBtm = DensityUtil.dp2px(18);
-        mQuadOffset = DensityUtil.dp2px(5);
-        mInterSpace = DensityUtil.dp2px(24);
-        mLabelWidth = DensityUtil.dp2px(98);
-        mLeftAxisLabelMargin = DensityUtil.dp2px(4f);
+        mOffBtm = DensityUtil.dp2px(mContext,18);
+        mQuadOffset = DensityUtil.dp2px(mContext,5);
+        mInterSpace = DensityUtil.dp2px(mContext,24);
+        mLabelWidth = DensityUtil.dp2px(mContext,98);
+        mLeftAxisLabelMargin = DensityUtil.dp2px(mContext,4f);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setARGB(153, 255, 196, 0);
@@ -182,7 +182,7 @@ public class HorTaperChart extends View {
 
         mAxisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mAxisPaint.setColor(Color.rgb(149, 199, 255));
-        mAxisPaint.setStrokeWidth(DensityUtil.dp2px(0.5f));
+        mAxisPaint.setStrokeWidth(DensityUtil.dp2px(mContext,0.5f));
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setColor(Color.rgb(153, 153, 153));
@@ -200,7 +200,7 @@ public class HorTaperChart extends View {
 
         mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mLinePaint.setStyle(Paint.Style.FILL);
-        mLinePaint.setStrokeWidth(DensityUtil.dp2px(0.5f));
+        mLinePaint.setStrokeWidth(DensityUtil.dp2px(mContext,0.5f));
         mLinePaint.setColor(Color.RED);
 
         mYAxisList = new ArrayList<>(6);
@@ -246,7 +246,7 @@ public class HorTaperChart extends View {
         mXValues.clear();
         mYValues.clear();
 
-        if (EmptyUtils.isEmpty(xValues) || EmptyUtils.isEmpty(yValues)) { // 暂无数据
+        if (EmptyUtil.isEmpty(xValues) || EmptyUtil.isEmpty(yValues)) { // 暂无数据
             invalidate();
             return;
         }
@@ -291,7 +291,7 @@ public class HorTaperChart extends View {
         int emptyTxtW = Util.getTextWidth(NOT_DATA, mNullPaint);
         int emptyTxtH = Util.getTextHeight(NOT_DATA, mNullPaint);
         // 画文字的时候，y值是文字的底线
-        canvas.drawText(NOT_DATA, canvasW / 2 - emptyTxtW / 2, canvasH / 2 + emptyTxtH / 2 - DensityUtil.dp2px(1.5f), mNullPaint);
+        canvas.drawText(NOT_DATA, canvasW / 2 - emptyTxtW / 2, canvasH / 2 + emptyTxtH / 2 - DensityUtil.dp2px(mContext,1.5f), mNullPaint);
     }
 
     /**
@@ -346,7 +346,7 @@ public class HorTaperChart extends View {
     private void drawLabel(Canvas canvas) {
         float yAxisBtm = mCanvasH - mOffBtm;
         // x轴label相对x轴的偏移量，间距
-        int offset = DensityUtil.dp2px(1);
+        int offset = DensityUtil.dp2px(mContext,1);
         int valueH = Util.getTextHeight(mXValues.get(0), mTextPaint);
         // 绘制x轴刻度值
         float xAxisTxt_Y = yAxisBtm + valueH + offset;
@@ -382,7 +382,7 @@ public class HorTaperChart extends View {
         float oneH = (mCanvasH - mOffBtm - mPaint.getStrokeWidth()) / y_max;
         PointF pf;
 
-        if (EmptyUtils.isNotEmpty(mList)) {
+        if (EmptyUtil.isNotEmpty(mList)) {
             mList.clear();
         }
 
@@ -476,7 +476,7 @@ public class HorTaperChart extends View {
             // 右 - 控制点
             canvas.drawPoint(pf.x + mLabelWidth - mQuadXSpace, pf.y - QUAD_Y_SPACE, mPointPaint);
             //绘制测量线，便于观察绘制的准确性
-            canvas.drawLine(centerX, topY - DensityUtil.dp2px(5), centerX, pf.y, mLinePaint);
+            canvas.drawLine(centerX, topY - DensityUtil.dp2px(mContext,5), centerX, pf.y, mLinePaint);
             // 绘制高度测量线，便于观察绘制的准确性
             mPaint.setStrokeWidth(1.5f);
             canvas.drawLine(mYMaxStrW + mLeftAxisLabelMargin + mPaint.getStrokeWidth(),
@@ -494,7 +494,7 @@ public class HorTaperChart extends View {
     private void drawTopValue(Canvas canvas, float yValue, float topY, float centerX) {
         if (mIsDrawTopValue) {
             String text = pointFormat.format(yValue);
-            canvas.drawText(text, centerX - Util.getTextWidth(text, mTextPaint) / 2, topY - DensityUtil.dp2px(2), mTextPaint);
+            canvas.drawText(text, centerX - Util.getTextWidth(text, mTextPaint) / 2, topY - DensityUtil.dp2px(mContext,2), mTextPaint);
         }
     }
 
@@ -526,7 +526,7 @@ public class HorTaperChart extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (EmptyUtils.isEmpty(mXValues) || EmptyUtils.isEmpty(mYValues)) {
+        if (EmptyUtil.isEmpty(mXValues) || EmptyUtil.isEmpty(mYValues)) {
             drawEmptyData(canvas);
             return;
         }

@@ -2,10 +2,11 @@ package com.doyou.cv.widget.sys.viewpager.transformer;
 
 import android.view.View;
 
-import com.dongni.tools.Common;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
+
+import com.doyou.cv.utils.Common;
 
 /**
  * 转换器：xy缩放+透明度改变

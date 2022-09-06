@@ -3,7 +3,7 @@ package com.doyou.cvc.activity.sys.viewpager
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.dongni.tools.DensityUtil
+import com.doyou.cv.utils.DensityUtil
 import com.doyou.cv.widget.sys.viewpager.transformer.ScaleAlphaTransformer
 import com.doyou.cvc.R
 import kotlinx.android.synthetic.main.activity_viewpage_transformer.*
@@ -38,7 +38,7 @@ class ViewPagerTransformerActivity : AppCompatActivity() {
             return@setOnTouchListener transformerVp.onTouchEvent(event)
         }
         transformerVp.offscreenPageLimit = 3
-        transformerVp.pageMargin = DensityUtil.dp2px(45f)
+        transformerVp.pageMargin = DensityUtil.dp2px(this,45f)
         // 自定义转换器
         transformerVp.setPageTransformer(true, ScaleAlphaTransformer())
         mAdapter = ViewPagerAdapter(images.asList())

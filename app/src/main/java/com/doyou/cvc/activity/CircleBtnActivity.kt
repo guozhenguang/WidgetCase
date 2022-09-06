@@ -4,8 +4,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.dongni.tools.Common
 import com.doyou.cv.callback.Rotatable
+import com.doyou.cv.utils.Common
 import com.doyou.cvc.R
 import com.doyou.cvc.activity.listener.OrientationListener
 import kotlinx.android.synthetic.main.activity_circlebtn.*

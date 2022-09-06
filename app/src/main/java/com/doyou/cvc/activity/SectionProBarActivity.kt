@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import com.dongni.tools.Common
+import com.doyou.cv.utils.Common
 import com.doyou.cvc.R
 import kotlinx.android.synthetic.main.activity_section_probar.*
 

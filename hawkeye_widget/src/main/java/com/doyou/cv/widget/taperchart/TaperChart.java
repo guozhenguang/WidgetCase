@@ -14,12 +14,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.dongni.tools.DensityUtil;
-import com.dongni.tools.EmptyUtils;
-import com.dongni.tools.ToastUtils;
 import com.doyou.cv.R;
 import com.doyou.cv.bean.TaperChartBean;
+import com.doyou.cv.utils.DensityUtil;
+import com.doyou.cv.utils.EmptyUtil;
 import com.doyou.cv.utils.LogUtil;
+import com.doyou.cv.utils.ToastUtils;
 import com.doyou.cv.utils.Util;
 
 import java.text.DecimalFormat;
@@ -162,11 +162,11 @@ public class TaperChart extends View {
     }
 
     private void init() {
-        mOffBtm = DensityUtil.dp2px(18);
-        mQuadOffset = DensityUtil.dp2px(5);
-        mInterSpace = DensityUtil.dp2px(24);
-        mLabelWidth = DensityUtil.dp2px(98);
-        mLeftAxisLabelMargin = DensityUtil.dp2px(4f);
+        mOffBtm = DensityUtil.dp2px(mContext,18);
+        mQuadOffset = DensityUtil.dp2px(mContext,5);
+        mInterSpace = DensityUtil.dp2px(mContext,24);
+        mLabelWidth = DensityUtil.dp2px(mContext,98);
+        mLeftAxisLabelMargin = DensityUtil.dp2px(mContext,4f);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setARGB(153, 255, 196, 0);
@@ -174,7 +174,7 @@ public class TaperChart extends View {
 
         mAxisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mAxisPaint.setColor(Color.rgb(149, 199, 255));
-        mAxisPaint.setStrokeWidth(DensityUtil.dp2px(0.5f));
+        mAxisPaint.setStrokeWidth(DensityUtil.dp2px(mContext,0.5f));
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setColor(Color.rgb(153, 153, 153));
@@ -193,7 +193,7 @@ public class TaperChart extends View {
 
         mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mLinePaint.setStyle(Paint.Style.FILL);
-        mLinePaint.setStrokeWidth(DensityUtil.dp2px(0.5f));
+        mLinePaint.setStrokeWidth(DensityUtil.dp2px(mContext,0.5f));
         mLinePaint.setColor(Color.RED);
 
         mYAxisList = new ArrayList<>(6);
@@ -299,7 +299,7 @@ public class TaperChart extends View {
         mXValues.clear();
         mYValues.clear();
 
-        if (EmptyUtils.isEmpty(xValues) || EmptyUtils.isEmpty(yValues)) { // 暂无数据
+        if (EmptyUtil.isEmpty(xValues) || EmptyUtil.isEmpty(yValues)) { // 暂无数据
             invalidate();
             return;
         }
@@ -372,7 +372,7 @@ public class TaperChart extends View {
         int emptyTxtH = Util.getTextHeight(NOT_DATA, mNullPaint);
 //        canvas.drawText(NOT_DATA, canvasW / 2 - emptyTxtL / 2, canvasH / 2 - emptyTxtL / 2, mNullPaint);
         // 画文字的时候，y值是文字的底线
-        canvas.drawText(NOT_DATA, canvasW / 2 - emptyTxtW / 2, canvasH / 2 + emptyTxtH / 2 - DensityUtil.dp2px(1.5f), mNullPaint);
+        canvas.drawText(NOT_DATA, canvasW / 2 - emptyTxtW / 2, canvasH / 2 + emptyTxtH / 2 - DensityUtil.dp2px(mContext,1.5f), mNullPaint);
 
         // 测试
 //        canvas.drawLine(0, canvasH / 2 - mNullPaint.getStrokeWidth(), canvasW, canvasH / 2 - mNullPaint.getStrokeWidth(), mNullPaint);
@@ -433,7 +433,7 @@ public class TaperChart extends View {
     private void drawLabel(Canvas canvas){
         float yAxisBtm = mCanvasH - mOffBtm;
         // x轴label相对x轴的偏移量，间距
-        int offset = DensityUtil.dp2px(1);
+        int offset = DensityUtil.dp2px(mContext,1);
         int valueH = Util.getTextHeight(mXValues.get(0), mTextPaint);
         // 绘制x轴刻度值
         float xAxisTxt_Y = yAxisBtm + valueH + offset;
@@ -569,7 +569,7 @@ public class TaperChart extends View {
         float oneH = (mCanvasH - mOffBtm - mPaint.getStrokeWidth()) / y_max;
         PointF pf;
 
-        if (EmptyUtils.isNotEmpty(mList)) {
+        if (EmptyUtil.isNotEmpty(mList)) {
             mList.clear();
         }
 
@@ -585,7 +585,7 @@ public class TaperChart extends View {
             case 2:
             case 3:
                 int[] colors = null;
-                if (EmptyUtils.isNotEmpty(mTaperColors)) {
+                if (EmptyUtil.isNotEmpty(mTaperColors)) {
                     if (mTaperColors.size() != x_count) {
                         throw new IllegalArgumentException("颜色值的数量和图形数量请保证相等");
                     }
@@ -626,7 +626,7 @@ public class TaperChart extends View {
                 break;
             case 4:
                 int[] four_colors = null;
-                if (EmptyUtils.isNotEmpty(mTaperColors)) {
+                if (EmptyUtil.isNotEmpty(mTaperColors)) {
                     four_colors = new int[]{mTaperColors.get(0), mTaperColors.get(1)};
                 } else {
                     four_colors = new int[]{COLORS[2], COLORS[1]};
@@ -652,7 +652,7 @@ public class TaperChart extends View {
                 break;
             case 6:
                 int[] sex_colors = null;
-                if (EmptyUtils.isNotEmpty(mTaperColors)) {
+                if (EmptyUtil.isNotEmpty(mTaperColors)) {
                     sex_colors = new int[]{mTaperColors.get(0), mTaperColors.get(1)};
                 } else {
                     sex_colors = new int[]{COLORS[2], COLORS[1]};
@@ -790,7 +790,7 @@ public class TaperChart extends View {
             // 右 - 控制点
             canvas.drawPoint(pf.x + mLabelWidth - mQuadXSpace, pf.y - QUAD_Y_SPACE, mPointPaint);
             //绘制测量线，便于观察绘制的准确性
-            canvas.drawLine(centerX, topY - DensityUtil.dp2px(5), centerX, pf.y, mLinePaint);
+            canvas.drawLine(centerX, topY - DensityUtil.dp2px(mContext,5), centerX, pf.y, mLinePaint);
             // 绘制高度测量线，便于观察绘制的准确性
             mPaint.setStrokeWidth(1.5f);
             canvas.drawLine(mYMaxStrW + mLeftAxisLabelMargin + mPaint.getStrokeWidth(),
@@ -816,7 +816,7 @@ public class TaperChart extends View {
             } else {
                 text = pointFormat.format(yValue);
             }
-            canvas.drawText(text, centerX - Util.getTextWidth(text, mTextPaint) / 2, topY - DensityUtil.dp2px(2), mTextPaint);
+            canvas.drawText(text, centerX - Util.getTextWidth(text, mTextPaint) / 2, topY - DensityUtil.dp2px(mContext,2), mTextPaint);
         }
     }
 
@@ -882,7 +882,7 @@ public class TaperChart extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (EmptyUtils.isEmpty(mXValues) || EmptyUtils.isEmpty(mYValues)) {
+        if (EmptyUtil.isEmpty(mXValues) || EmptyUtil.isEmpty(mYValues)) {
             drawEmptyData(canvas);
             return;
         }
@@ -897,7 +897,7 @@ public class TaperChart extends View {
     }
 
     private float downX = 0f, downY = 0f;
-    private long currentMS = 0l;
+    private long currentMS = 0L;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -914,14 +914,14 @@ public class TaperChart extends View {
                 long moveTime = System.currentTimeMillis() - currentMS;
                 LogUtil.logD("201811161726", "moveTime = " + moveTime);
                 if (moveTime < 120) { // 点击判定条件
-                    if (EmptyUtils.isNotEmpty(mList)) {
+                    if (EmptyUtil.isNotEmpty(mList)) {
                         TaperChartBean bean;
                         int size = mList.size();
                         for (int i = 0; i < size; i++) {
                             bean = mList.get(i);
                             if (bean.isInChartArea(bean.getRectF(), downX, downY)) {
                                 bean = mList.get(i);
-                                if (EmptyUtils.isNotEmpty(mHints)) { // 传入了文案，优先用传入的
+                                if (EmptyUtil.isNotEmpty(mHints)) { // 传入了文案，优先用传入的
                                     int hSize = mHints.size();
                                     String result = "";
                                     for (int j = 0; j < hSize; j++) {
@@ -930,7 +930,7 @@ public class TaperChart extends View {
                                             break;
                                         }
                                     }
-                                    if (EmptyUtils.isNotEmpty(result)) {
+                                    if (EmptyUtil.isNotEmpty(result)) {
                                         ToastUtils.showLongToast(mContext, result);
                                     } else {
                                         if (mIsShowDebug) {

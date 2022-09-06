@@ -4,8 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.dongni.tools.Common
 import com.doyou.cv.bean.CircleBean
+import com.doyou.cv.utils.Common
 import com.doyou.cvc.R
 import kotlinx.android.synthetic.main.activity_legend_ringview.*
 import java.text.DecimalFormat
